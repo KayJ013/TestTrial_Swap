@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerAbility : MonoBehaviour
 {
-    private PlayerFormController form;
+    private PlayerFormController formController;
 
     void Start()
     {
-        form = GetComponent<PlayerFormController>();
+        formController = GetComponent<PlayerFormController>();
     }
 
     void Update()
@@ -19,19 +19,36 @@ public class PlayerAbility : MonoBehaviour
 
     void UseAbility()
     {
-        switch (form.currentType)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 1f);
+
+        if (hit.collider == null)
+            return;
+
+        CharacterType type = formController.currentCharacter.characterType;
+
+        if (type == CharacterType.Wizard)
         {
-            case CharacterType.Wizard:
-                Debug.Log("Wizard: open lever");
-                break;
+            Lever lever = hit.collider.GetComponent<Lever>();
 
-            case CharacterType.Rogue:
-                Debug.Log("Rogue: spike immunity");
-                break;
+            if (lever != null)
+            {
+                lever.Activate();
+            }
+        }
 
-            case CharacterType.Hero:
-                Debug.Log("Hero: attack monsters");
-                break;
+        if (type == CharacterType.Hero)
+        {
+            Monster monster = hit.collider.GetComponent<Monster>();
+
+            if (monster != null)
+            {
+                monster.Defeat();
+            }
+        }
+
+        if (type == CharacterType.Rogue)
+        {
+            Debug.Log("Rogue avoids traps");
         }
     }
 }

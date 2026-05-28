@@ -1,57 +1,40 @@
 using UnityEngine;
 
-public enum CharacterType
-{
-    Hero,
-    Wizard,
-    Rogue
-}
-
 public class PlayerFormController : MonoBehaviour
 {
-    public CharacterType currentType;
+    public CharacterData heroData;
+    public CharacterData wizardData;
+    public CharacterData rogueData;
 
-    public Sprite heroSprite;
-    public Sprite wizardSprite;
-    public Sprite rogueSprite;
+    public CharacterData currentCharacter;
 
     private SpriteRenderer sr;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        ChangeForm(CharacterType.Hero);
+
+        ChangeForm(heroData);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            ChangeForm(CharacterType.Hero);
+            ChangeForm(heroData);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            ChangeForm(CharacterType.Wizard);
+            ChangeForm(wizardData);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            ChangeForm(CharacterType.Rogue);
+            ChangeForm(rogueData);
     }
 
-    void ChangeForm(CharacterType newType)
+    public void ChangeForm(CharacterData newCharacter)
     {
-        currentType = newType;
+        currentCharacter = newCharacter;
 
-        switch (newType)
-        {
-            case CharacterType.Hero:
-                sr.sprite = heroSprite;
-                break;
+        sr.sprite = currentCharacter.characterSprite;
 
-            case CharacterType.Wizard:
-                sr.sprite = wizardSprite;
-                break;
-
-            case CharacterType.Rogue:
-                sr.sprite = rogueSprite;
-                break;
-        }
+        Debug.Log("Changed to: " + currentCharacter.characterType);
     }
 }

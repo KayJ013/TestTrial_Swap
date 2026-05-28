@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 5953e621becee5c42bdec3ff10127578
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - heroData: {fileID: 11400000, guid: 85594d37f58ca5b4b9fc07b3b4202315, type: 2}
+  - wizardData: {fileID: 11400000, guid: c2ad1ae40575762439ade275da177c35, type: 2}
+  - rogueData: {fileID: 11400000, guid: e1ddbaaace5aa8147873cea27a2353c2, type: 2}
+  - currentCharacter: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
