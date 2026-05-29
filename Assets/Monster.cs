@@ -2,17 +2,21 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    private bool isDead = false;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PlayerHealth health =
+            collision.GetComponent<PlayerHealth>();
+
+        if (health != null)
+        {
+            health.TakeDamage(1);
+        }
+    }
 
     public void Defeat()
     {
-        if (!isDead)
-        {
-            isDead = true;
+        Debug.Log("Monster Defeated!");
 
-            Debug.Log("Monster Defeated!");
-
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

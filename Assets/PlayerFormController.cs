@@ -10,13 +10,12 @@ public class PlayerFormController : MonoBehaviour
 
     private SpriteRenderer sr;
 
-    void Start()
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
 
         ChangeForm(heroData);
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

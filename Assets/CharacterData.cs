@@ -7,6 +7,12 @@ public class CharacterData : ScriptableObject
 
     public Sprite characterSprite;
 
+    [Header("Stats")]
+    public int maxHealth = 1;
+
+    [Header("Abilities")]
+    public bool canPassSpike;
+
     [TextArea]
     public string abilityDescription;
 }
