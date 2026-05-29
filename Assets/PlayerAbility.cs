@@ -4,6 +4,8 @@ public class PlayerAbility : MonoBehaviour
 {
     private PlayerFormController formController;
 
+    public float interactRange = 1f;
+
     void Start()
     {
         formController = GetComponent<PlayerFormController>();
@@ -19,36 +21,53 @@ public class PlayerAbility : MonoBehaviour
 
     void UseAbility()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 1f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            transform.position,
+            interactRange
+        );
 
-        if (hit.collider == null)
-            return;
+        CharacterType type =
+            formController.currentCharacter.characterType;
 
-        CharacterType type = formController.currentCharacter.characterType;
-
-        if (type == CharacterType.Wizard)
+        foreach (Collider2D hit in hits)
         {
-            Lever lever = hit.collider.GetComponent<Lever>();
-
-            if (lever != null)
+            // WIZARD → LEVER
+            if (type == CharacterType.Wizard)
             {
-                lever.Activate();
+                Lever lever = hit.GetComponent<Lever>();
+
+                if (lever != null)
+                {
+                    lever.Activate();
+                }
+            }
+
+            // HERO → MONSTER
+            if (type == CharacterType.Hero)
+            {
+                Monster monster = hit.GetComponent<Monster>();
+
+                if (monster != null)
+                {
+                    monster.Defeat();
+                }
+            }
+
+            // ROGUE
+            if (type == CharacterType.Rogue)
+            {
+                Debug.Log("Rogue avoids traps");
             }
         }
+    }
 
-        if (type == CharacterType.Hero)
-        {
-            Monster monster = hit.collider.GetComponent<Monster>();
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
 
-            if (monster != null)
-            {
-                monster.Defeat();
-            }
-        }
-
-        if (type == CharacterType.Rogue)
-        {
-            Debug.Log("Rogue avoids traps");
-        }
+        Gizmos.DrawWireSphere(
+            transform.position,
+            interactRange
+        );
     }
 }
