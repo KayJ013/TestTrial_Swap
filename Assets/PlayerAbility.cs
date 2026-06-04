@@ -3,12 +3,14 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     private PlayerFormController formController;
+    private Animator animator;
 
     public float interactRange = 1f;
 
     void Start()
     {
         formController = GetComponent<PlayerFormController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -21,27 +23,33 @@ public class PlayerAbility : MonoBehaviour
 
     void UseAbility()
     {
+        CharacterType type =
+            formController.currentCharacter.characterType;
+
+        // Trigger Animation
+        switch (type)
+        {
+            case CharacterType.Hero:
+                animator.SetTrigger("Attack");
+                break;
+
+            case CharacterType.Wizard:
+                animator.SetTrigger("Interact");
+                break;
+
+            case CharacterType.Rogue:
+                Debug.Log("Rogue avoids traps");
+                break;
+        }
+
+        // Check nearby objects
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             transform.position,
             interactRange
         );
 
-        CharacterType type =
-            formController.currentCharacter.characterType;
-
         foreach (Collider2D hit in hits)
         {
-            // WIZARD → LEVER
-            if (type == CharacterType.Wizard)
-            {
-                Lever lever = hit.GetComponent<Lever>();
-
-                if (lever != null)
-                {
-                    lever.Activate();
-                }
-            }
-
             // HERO → MONSTER
             if (type == CharacterType.Hero)
             {
@@ -53,10 +61,15 @@ public class PlayerAbility : MonoBehaviour
                 }
             }
 
-            // ROGUE
-            if (type == CharacterType.Rogue)
+            // MAGE → LEVER
+            if (type == CharacterType.Wizard)
             {
-                Debug.Log("Rogue avoids traps");
+                Lever lever = hit.GetComponent<Lever>();
+
+                if (lever != null)
+                {
+                    lever.Activate();
+                }
             }
         }
     }

@@ -6,6 +6,7 @@ public class CharacterData : ScriptableObject
     public CharacterType characterType;
 
     public Sprite characterSprite;
+    public RuntimeAnimatorController animatorController;
 
     [Header("Stats")]
     public int maxHealth = 1;

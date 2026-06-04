@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: HeroData
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterType: 0
-  characterSprite: {fileID: 21300000, guid: 38496544be8f3dd41a7e0a546552a7db, type: 3}
+  characterSprite: {fileID: -8330699473338067154, guid: fbcd070b724f75f4ca57565982061d24, type: 3}
+  animatorController: {fileID: 9100000, guid: 8430be0471cf9ef4fa07087cfbec0f95, type: 2}
+  maxHealth: 1
+  canPassSpike: 0
   abilityDescription: '"Attack monsters"
 
 '

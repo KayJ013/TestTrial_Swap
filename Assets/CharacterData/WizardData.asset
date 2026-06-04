@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterType: 1
   characterSprite: {fileID: 21300000, guid: b9f7357c158f8c24b8b38fab33edfe39, type: 3}
+  animatorController: {fileID: 9100000, guid: 27e53b35a2732e841b08aa262bcd2774, type: 2}
+  maxHealth: 1
+  canPassSpike: 0
   abilityDescription: Open lever

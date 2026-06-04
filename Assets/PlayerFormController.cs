@@ -10,11 +10,16 @@ public class PlayerFormController : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    private Animator animator;
+
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
 
+        animator = GetComponent<Animator>();
+
         ChangeForm(heroData);
+        
     }
     void Update()
     {
@@ -32,7 +37,11 @@ public class PlayerFormController : MonoBehaviour
     {
         currentCharacter = newCharacter;
 
+        animator.runtimeAnimatorController =
+         newCharacter.animatorController;
+
         sr.sprite = currentCharacter.characterSprite;
+        
 
         Debug.Log("Changed to: " + currentCharacter.characterType);
     }
