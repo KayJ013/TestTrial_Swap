@@ -256,6 +256,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &522279689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 522279690}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &522279690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522279689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2019522872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &535374679
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,6 +909,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &2019522872 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7493866289554841504, guid: cd7b85f652ae2f649a426e2ace9aef5b, type: 3}
+  m_PrefabInstance: {fileID: 2069550542}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2069550542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -890,6 +926,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 715541403498280625, guid: cd7b85f652ae2f649a426e2ace9aef5b, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 522279690}
     - target: {fileID: 909904324123454409, guid: cd7b85f652ae2f649a426e2ace9aef5b, type: 3}
       propertyPath: heroData
       value: 
@@ -956,7 +996,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7493866289554841504, guid: cd7b85f652ae2f649a426e2ace9aef5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 522279690}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2149159840946116008, guid: cd7b85f652ae2f649a426e2ace9aef5b, type: 3}
       insertIndex: 3

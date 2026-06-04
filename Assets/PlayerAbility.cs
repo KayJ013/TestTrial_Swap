@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     private PlayerFormController formController;
+    public Transform attackPoint;
     private Animator animator;
 
     public float interactRange = 1f;
@@ -15,12 +16,13 @@ public class PlayerAbility : MonoBehaviour
 
     void Update()
     {
+        UpdateAttackPoint();
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             UseAbility();
         }
     }
-
     void UseAbility()
     {
         CharacterType type =
@@ -43,8 +45,9 @@ public class PlayerAbility : MonoBehaviour
         }
 
         // Check nearby objects
-        Collider2D[] hits = Physics2D.OverlapCircleAll(
-            transform.position,
+        Collider2D[] hits =
+        Physics2D.OverlapCircleAll(
+            attackPoint.position,
             interactRange
         );
 
@@ -74,13 +77,25 @@ public class PlayerAbility : MonoBehaviour
         }
     }
 
+    void UpdateAttackPoint()
+    {
+        float x = animator.GetFloat("LastMoveX");
+        float y = animator.GetFloat("LastMoveY");
+
+        attackPoint.localPosition =
+            new Vector2(x, y) * 0.75f;
+    }
+
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
+        if (attackPoint != null)
+        {
+            Gizmos.color = Color.yellow;
 
-        Gizmos.DrawWireSphere(
-            transform.position,
-            interactRange
-        );
+            Gizmos.DrawWireSphere(
+                attackPoint.position,
+                interactRange
+            );
+        }
     }
 }
