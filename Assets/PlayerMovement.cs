@@ -10,6 +10,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveInput;
 
+    private PlayerInputController inputController;
+
+    private void Awake()
+    {
+        inputController = GetComponent<PlayerInputController>();
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,20 +25,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Input
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-
-        // Supaya tidak diagonal lebih cepat
+        moveInput = inputController.InputActions.Player.Move.ReadValue<Vector2>();
         moveInput = moveInput.normalized;
 
         bool isMoving = moveInput != Vector2.zero;
 
-        // Update Animator Walk Direction
-        animator.SetFloat("MoveX", moveInput.x);
-        animator.SetFloat("MoveY", moveInput.y);
-
-        // Simpan arah terakhir
         if (isMoving)
         {
             animator.SetFloat("MoveX", moveInput.x);
@@ -41,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("LastMoveY", moveInput.y);
         }
 
-        // State bergerak atau diam
         animator.SetBool("isMoving", isMoving);
     }
 

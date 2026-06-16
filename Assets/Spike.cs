@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
+    private PlayerInputController inputController;
+
+    private void Awake()
+    {
+        inputController = FindFirstObjectByType<PlayerInputController>();
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         PlayerFormController form =
@@ -16,19 +23,15 @@ public class Spike : MonoBehaviour
         CharacterData currentCharacter =
             form.currentCharacter;
 
-        // ROGUE CAN PASS
         if (currentCharacter.canPassSpike)
         {
-            // tahan E = aman
-            if (Input.GetKey(KeyCode.E))
+            if (inputController.InputActions.Player.Ability.IsPressed())
             {
                 Debug.Log("Rogue avoids traps");
-
                 return;
             }
         }
 
-        // selain itu kena damage
         health.TakeDamage(1);
     }
 }

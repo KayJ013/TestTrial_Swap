@@ -1,12 +1,31 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAbility : MonoBehaviour
 {
     private PlayerFormController formController;
+    private PlayerInputController inputController;
+
     public Transform attackPoint;
+
     private Animator animator;
 
     public float interactRange = 1f;
+
+    private void Awake()
+    {
+        inputController = GetComponent<PlayerInputController>();
+    }
+
+    private void OnEnable()
+    {
+        inputController.InputActions.Player.Ability.performed += OnAbility;
+    }
+
+    private void OnDisable()
+    {
+        inputController.InputActions.Player.Ability.performed -= OnAbility;
+    }
 
     void Start()
     {
@@ -14,21 +33,21 @@ public class PlayerAbility : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnAbility(InputAction.CallbackContext context)
+    {
+        UseAbility();
+    }
+
     void Update()
     {
         UpdateAttackPoint();
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            UseAbility();
-        }
     }
+
     void UseAbility()
     {
         CharacterType type =
             formController.currentCharacter.characterType;
 
-        // Trigger Animation
         switch (type)
         {
             case CharacterType.Hero:
@@ -44,35 +63,27 @@ public class PlayerAbility : MonoBehaviour
                 break;
         }
 
-        // Check nearby objects
         Collider2D[] hits =
-        Physics2D.OverlapCircleAll(
-            attackPoint.position,
-            interactRange
-        );
+            Physics2D.OverlapCircleAll(
+                attackPoint.position,
+                interactRange);
 
         foreach (Collider2D hit in hits)
         {
-            // HERO → MONSTER
             if (type == CharacterType.Hero)
             {
                 Monster monster = hit.GetComponent<Monster>();
 
                 if (monster != null)
-                {
                     monster.Defeat();
-                }
             }
 
-            // MAGE → LEVER
             if (type == CharacterType.Wizard)
             {
                 Lever lever = hit.GetComponent<Lever>();
 
                 if (lever != null)
-                {
                     lever.Activate();
-                }
             }
         }
     }
@@ -91,11 +102,9 @@ public class PlayerAbility : MonoBehaviour
         if (attackPoint != null)
         {
             Gizmos.color = Color.yellow;
-
             Gizmos.DrawWireSphere(
                 attackPoint.position,
-                interactRange
-            );
+                interactRange);
         }
     }
 }
